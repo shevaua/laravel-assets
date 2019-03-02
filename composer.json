@@ -12,5 +12,15 @@
         "classmap": [
             "src/"
         ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Shevaua\\LaravelAssets\\Provider\\AssetProvider"
+            ],
+            "aliases": {
+                "Assets": "Shevaua\\LaravelAssets\\Facade\\AssetGroupFacade"
+            }
+        }
     }
 }

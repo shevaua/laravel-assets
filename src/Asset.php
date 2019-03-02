@@ -8,6 +8,12 @@ namespace Shevaua\LaravelAssets;
 class Asset
 {
 
+    const TYPE_JS = 'js';
+    const TYPE_CSS = 'css';
+    const TYPE_UNKNOWN = 'unknown';
+
+    const REGEX_EXT = '#\.(\w+)$#';
+
     /**
      * @var string $path
      */
@@ -48,6 +54,40 @@ class Asset
     public function getVersion(): string
     {
         return $this->version;
+    }
+
+    /**
+     * Get type of the asset
+     * 
+     * @return string
+     */
+    public function getType(): string
+    {
+        if(
+            preg_match(self::REGEX_EXT, $this->path, $matches)
+            and in_array($matches[1], [
+                self::TYPE_CSS,
+                self::TYPE_JS,
+            ])
+        ) {
+            return $matches[1];
+        }
+        return self::TYPE_UNKNOWN;
+    }
+
+    /**
+     * Get uri for the asset
+     * 
+     * @return string
+     */
+    public function getUri(): string
+    {
+        $uri = $this->getPath();
+        if($this->version)
+        {
+            $uri .= '?v='.$this->version;
+        }
+        return $uri;
     }
 
 }

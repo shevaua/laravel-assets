@@ -37,4 +37,18 @@ class AssetTest extends TestCase
 
     }
 
+    public function testAssetType()
+    {
+        
+        $asset = new Asset('/js/app.js', '123');
+        $this->assertEquals($asset->getType(), Asset::TYPE_JS);
+
+        $asset = new Asset('/css/app.css', '1');
+        $this->assertEquals($asset->getType(), Asset::TYPE_CSS);
+
+        $asset = new Asset('/app.123 ', '123');
+        $this->assertEquals($asset->getType(), Asset::TYPE_UNKNOWN);
+
+    }
+
 }
